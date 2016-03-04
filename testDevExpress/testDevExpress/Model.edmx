@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LocalDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="LocalDBModelStoreContainer">
+          <EntitySet Name="Persona" EntityType="LocalDBModel.Store.Persona" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Telefono" EntityType="LocalDBModel.Store.Telefono" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Telefono__Person__24927208" Association="LocalDBModel.Store.FK__Telefono__Person__24927208">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="PersonaID" />
+          </Key>
+          <Property Name="PersonaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Fotografia" Type="image" />
+          <Property Name="Habilitado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="TelefonoID" />
+          </Key>
+          <Property Name="TelefonoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaID" Type="int" Nullable="false" />
+          <Property Name="Numero" Type="nchar" MaxLength="12" />
+        </EntityType>
+        <Association Name="FK__Telefono__Person__24927208">
+          <End Role="Persona" Type="LocalDBModel.Store.Persona" Multiplicity="1" />
+          <End Role="Telefono" Type="LocalDBModel.Store.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaID" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="PersonaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LocalDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Local_DB" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Persona" EntityType="LocalDBModel.Persona" />
+          <EntitySet Name="Telefono" EntityType="LocalDBModel.Telefono" />
+          <AssociationSet Name="FK__Telefono__Person__24927208" Association="LocalDBModel.FK__Telefono__Person__24927208">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="PersonaID" />
+          </Key>
+          <Property Type="Int32" Name="PersonaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaNacimiento" Precision="0" />
+          <Property Type="Binary" Name="Fotografia" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Telefono" Relationship="LocalDBModel.FK__Telefono__Person__24927208" FromRole="Persona" ToRole="Telefono" />
+          <Property Type="Boolean" Name="Habilitado" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="TelefonoID" />
+          </Key>
+          <Property Type="Int32" Name="TelefonoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PersonaID" Nullable="false" />
+          <Property Type="String" Name="Numero" MaxLength="12" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Persona" Relationship="LocalDBModel.FK__Telefono__Person__24927208" FromRole="Telefono" ToRole="Persona" />
+        </EntityType>
+        <Association Name="FK__Telefono__Person__24927208">
+          <End Type="LocalDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="LocalDBModel.Telefono" Role="Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaID" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="PersonaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LocalDBModelStoreContainer" CdmEntityContainer="Local_DB">
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="LocalDBModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+                <ScalarProperty Name="Fotografia" ColumnName="Fotografia" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PersonaID" ColumnName="PersonaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefono">
+            <EntityTypeMapping TypeName="LocalDBModel.Telefono">
+              <MappingFragment StoreEntitySet="Telefono">
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="PersonaID" ColumnName="PersonaID" />
+                <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

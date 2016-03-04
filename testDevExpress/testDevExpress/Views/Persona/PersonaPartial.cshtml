@@ -1,0 +1,71 @@
+﻿@Html.DevExpress().GridView(
+    settings => {
+        settings.Name = "personaGrid";
+        settings.CallbackRouteValues = new { Controller = "Persona", Action = "PersonaPartial" };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Persona", Action = "NewPartial" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Persona", Action = "UpdatePartial" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Persona", Action = "DeletePartial" };
+        settings.Width = 800;
+
+        settings.KeyFieldName = "PersonaID";
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Fotografia";
+            c.ColumnType = MVCxGridViewColumnType.BinaryImage;
+            var properties = (MVCxBinaryImageEditProperties)c.PropertiesEdit;
+            properties.ImageHeight = 170;
+            properties.ImageWidth = 160;
+            properties.EnableServerResize = true;
+            properties.ImageSizeMode = ImageSizeMode.FitProportional;
+            properties.CallbackRouteValues = new { Action = "BinaryImageColumnPhotoUpdate", Controller = "Persona" };
+            properties.EditingSettings.Enabled = true;
+            properties.EditingSettings.UploadSettings.UploadValidationSettings.MaxFileSize = 4194304;
+        });
+        settings.Columns.Add("Nombre");
+        settings.Columns.Add("FechaNacimiento", MVCxGridViewColumnType.DateEdit);
+
+        settings.EditFormLayoutProperties.ColCount = 3;
+        settings.EditFormLayoutProperties.Items.Add(i =>
+        {
+            i.ColumnName = "Fotografia";
+            i.RowSpan = 4;
+            i.ShowCaption = DefaultBoolean.False;
+            i.Width = 160;
+        });
+        settings.EditFormLayoutProperties.Items.Add("Nombre");
+        settings.EditFormLayoutProperties.Items.Add("FechaNacimiento");
+        
+        settings.EditFormLayoutProperties.Items.AddEmptyItem(new EmptyLayoutItem());
+        settings.EditFormLayoutProperties.Items.AddCommandItem(i =>
+        {
+            i.ShowUpdateButton = true;
+            i.ShowCancelButton = true;
+            i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        });
+
+        settings.SettingsPager.PageSize = 10;
+      
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.SetDetailRowTemplateContent(c => {
+            Html.RenderAction("DetailPartial", new { PersonaID = DataBinder.Eval(c.DataItem, "PersonaID") });
+        });
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(0);
+        };
+    }).Bind(Model).GetHtml()
+
+
+
+       
+        
+       
