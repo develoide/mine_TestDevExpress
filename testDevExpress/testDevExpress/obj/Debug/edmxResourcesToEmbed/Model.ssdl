@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocalDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="LocalDBModelStoreContainer">
+    <EntitySet Name="Persona" EntityType="LocalDBModel.Store.Persona" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Telefono" EntityType="LocalDBModel.Store.Telefono" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <AssociationSet Name="FK__Telefono__Person__24927208" Association="LocalDBModel.Store.FK__Telefono__Person__24927208">
+      <End Role="Persona" EntitySet="Persona" />
+      <End Role="Telefono" EntitySet="Telefono" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="PersonaID" />
+    </Key>
+    <Property Name="PersonaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="FechaNacimiento" Type="date" />
+    <Property Name="Fotografia" Type="image" />
+    <Property Name="Habilitado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Telefono">
+    <Key>
+      <PropertyRef Name="TelefonoID" />
+    </Key>
+    <Property Name="TelefonoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PersonaID" Type="int" Nullable="false" />
+    <Property Name="Numero" Type="nchar" Nullable="false" MaxLength="12" />
+  </EntityType>
+  <Association Name="FK__Telefono__Person__24927208">
+    <End Role="Persona" Type="LocalDBModel.Store.Persona" Multiplicity="1" />
+    <End Role="Telefono" Type="LocalDBModel.Store.Telefono" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="PersonaID" />
+      </Principal>
+      <Dependent Role="Telefono">
+        <PropertyRef Name="PersonaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

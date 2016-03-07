@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocalDBModelStoreContainer" CdmEntityContainer="Local_DB">
+    <EntitySetMapping Name="Persona">
+      <EntityTypeMapping TypeName="LocalDBModel.Persona">
+        <MappingFragment StoreEntitySet="Persona">
+          <ScalarProperty Name="Habilitado" ColumnName="Habilitado" />
+          <ScalarProperty Name="Fotografia" ColumnName="Fotografia" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="PersonaID" ColumnName="PersonaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Telefono">
+      <EntityTypeMapping TypeName="LocalDBModel.Telefono">
+        <MappingFragment StoreEntitySet="Telefono">
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="PersonaID" ColumnName="PersonaID" />
+          <ScalarProperty Name="TelefonoID" ColumnName="TelefonoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

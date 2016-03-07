@@ -165,8 +165,9 @@ namespace testDevExpress.Models
     public class EditablePersona
     {
         public int PersonaID { get; set; }
-        [Required(ErrorMessage = "El nombre es requerido")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido")]
         public DateTime? FechaNacimiento { get; set; }
         public byte[] Fotografia { get; set; }
         public bool Habilitado { get; set; }
@@ -177,6 +178,7 @@ namespace testDevExpress.Models
         public int TelefonoID { get; set; }
         public int PersonaID { get; set; }
         [StringLength(10, ErrorMessage = "No debe de tener mas de 10 digitos")]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string Numero { get; set; }
     }
 }
