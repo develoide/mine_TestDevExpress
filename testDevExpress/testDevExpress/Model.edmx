@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LocalDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LocalDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="LocalDBModelStoreContainer">
-          <EntitySet Name="Persona" EntityType="LocalDBModel.Store.Persona" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Telefono" EntityType="LocalDBModel.Store.Telefono" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Persona" EntityType="LocalDBModel.Store.Persona" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Telefono" EntityType="LocalDBModel.Store.Telefono" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="FK__Telefono__Person__24927208" Association="LocalDBModel.Store.FK__Telefono__Person__24927208">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Telefono" EntitySet="Telefono" />
@@ -18,7 +18,7 @@
             <PropertyRef Name="PersonaID" />
           </Key>
           <Property Name="PersonaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="FechaNacimiento" Type="date" />
           <Property Name="Fotografia" Type="image" />
           <Property Name="Habilitado" Type="bit" Nullable="false" />
@@ -29,7 +29,7 @@
           </Key>
           <Property Name="TelefonoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PersonaID" Type="int" Nullable="false" />
-          <Property Name="Numero" Type="nchar" MaxLength="12" />
+          <Property Name="Numero" Type="nchar" Nullable="false" MaxLength="12" />
         </EntityType>
         <Association Name="FK__Telefono__Person__24927208">
           <End Role="Persona" Type="LocalDBModel.Store.Persona" Multiplicity="1" />
@@ -46,7 +46,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="LocalDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LocalDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="Local_DB" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Persona" EntityType="LocalDBModel.Persona" />
           <EntitySet Name="Telefono" EntityType="LocalDBModel.Telefono" />
@@ -59,8 +59,8 @@
           <Key>
             <PropertyRef Name="PersonaID" />
           </Key>
-          <Property Type="Int32" Name="PersonaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PersonaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Type="DateTime" Name="FechaNacimiento" Precision="0" />
           <Property Type="Binary" Name="Fotografia" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Telefono" Relationship="LocalDBModel.FK__Telefono__Person__24927208" FromRole="Persona" ToRole="Telefono" />
@@ -70,9 +70,9 @@
           <Key>
             <PropertyRef Name="TelefonoID" />
           </Key>
-          <Property Type="Int32" Name="TelefonoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TelefonoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int32" Name="PersonaID" Nullable="false" />
-          <Property Type="String" Name="Numero" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Numero" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="LocalDBModel.FK__Telefono__Person__24927208" FromRole="Telefono" ToRole="Persona" />
         </EntityType>
         <Association Name="FK__Telefono__Person__24927208">
@@ -91,7 +91,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LocalDBModelStoreContainer" CdmEntityContainer="Local_DB">
           <EntitySetMapping Name="Persona">
             <EntityTypeMapping TypeName="LocalDBModel.Persona">
@@ -118,7 +118,7 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -133,6 +133,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams />
   </Designer>
 </edmx:Edmx>

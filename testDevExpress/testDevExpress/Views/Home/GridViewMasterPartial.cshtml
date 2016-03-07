@@ -5,12 +5,27 @@
         settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "GridViewMasterAddNewPartial" };
         settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "GridViewMasterUpdatePartial" };
         settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "GridViewMasterDeletePartial" };
-        settings.Width = 400;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.Width = 800;
 
-        settings.KeyFieldName = "ID";
-        settings.Columns.Add("Number");
-        settings.Columns.Add("Floor");
-        settings.Columns.Add("Description");
+        settings.KeyFieldName = "PersonaID";
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "Fotografia";
+            c.ColumnType = MVCxGridViewColumnType.BinaryImage;
+            var properties = (MVCxBinaryImageEditProperties)c.PropertiesEdit;
+            properties.ImageHeight = 170;
+            properties.ImageWidth = 160;
+            properties.EnableServerResize = true;
+            properties.ImageSizeMode = ImageSizeMode.FitProportional;
+            properties.CallbackRouteValues = new { Action = "BinaryImageColumnPhotoUpdate", Controller = "Persona" };
+            properties.EditingSettings.Enabled = true;
+            properties.EditingSettings.UploadSettings.UploadValidationSettings.MaxFileSize = 4194304;
+        });
+      
+        settings.Columns.Add("Nombre");
+        settings.Columns.Add("FechaNacimiento", MVCxGridViewColumnType.DateEdit);
+       
 
         settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
         settings.SettingsDetail.ShowDetailRow = true;
@@ -19,8 +34,12 @@
         settings.CommandColumn.ShowNewButton = true;
         settings.CommandColumn.ShowDeleteButton = true;
         settings.CommandColumn.ShowEditButton = true;
+        settings.SetDetailRowTemplateContent(c =>
+        {
+            Html.RenderAction("DetailPartial", new { PersonaID = DataBinder.Eval(c.DataItem, "PersonaID") });
+        });
 
         settings.SetDetailRowTemplateContent(c => {
-            Html.RenderAction("GridViewDetailPartial", new { RoomID = DataBinder.Eval(c.DataItem, "ID") });
+            Html.RenderAction("GridViewDetailPartial", new { PersonaID = DataBinder.Eval(c.DataItem, "PersonaID") });
         });
     }).Bind(Model).GetHtml()

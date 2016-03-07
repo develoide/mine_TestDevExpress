@@ -1,22 +1,23 @@
 ﻿@Html.DevExpress().GridView(
     settings => {
-        settings.Name = "detailGridView_" + ViewData["RoomID"];
-        settings.CallbackRouteValues = new { Controller = "Home", Action = "GridViewDetailPartial", RoomID = ViewData["RoomID"] };
-        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "GridViewDetailAddNewPartial", RoomID = ViewData["RoomID"] };
-        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "GridViewDetailUpdatePartial", RoomID = ViewData["RoomID"] };
-        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "GridViewDetailDeletePartial", RoomID = ViewData["RoomID"] };
+        settings.Name = "detailGridView_" + ViewData["PersonaID"];
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "GridViewDetailPartial", PersonaID = ViewData["PersonaID"] };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "GridViewDetailAddNewPartial", PersonaID = ViewData["PersonaID"] };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "GridViewDetailUpdatePartial", PersonaID = ViewData["PersonaID"] };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "GridViewDetailDeletePartial", PersonaID = ViewData["PersonaID"] };
+        settings.SettingsBehavior.ConfirmDelete = true;
 
         settings.CommandColumn.Visible = true;
         settings.CommandColumn.ShowNewButton = true;
         settings.CommandColumn.ShowDeleteButton = true;
         settings.CommandColumn.ShowEditButton = true;
         
-        settings.KeyFieldName = "ID";
-        settings.Columns.Add("FirstName");
-        settings.Columns.Add("SecondName");
-        settings.Columns.Add("Description");
+        settings.KeyFieldName = "TelefonoID";
+        settings.Columns.Add("Numero");
+        
+              
         
         settings.DataBinding = (sender, e) => {
-            ((MVCxGridView)sender).ForceDataRowType(typeof(testDevExpress.Models.Person));
+            ((MVCxGridView)sender).ForceDataRowType(typeof(testDevExpress.Models.EditableTelefono));
         };
     }).Bind(Model).GetHtml()
